@@ -23,31 +23,36 @@ Este projeto utiliza **Flask**, **Jinja2**, **JavaScript** e **CSS Responsivo** 
 
 ## Estrutura do Projeto 🛠️
 
-/Projeto de Otimização
+```plaintext
+Projeto de Otimização
 │
 ├── app/
-│   ├── init.py
+│   ├── __init__.py
 │   ├── routes.py
 │   ├── models.py (se necessário)
-│   └── templates/
-│       ├── base.html
-│       ├── home.html
-│       └── result.html (página de resultados)
-│   └── static/
-│       ├── styles.css
-│       ├── home_page_script.js
-│       └── images/
-│           └── background.jpg
+│
+├── templates/
+│   ├── base.html
+│   ├── home.html
+│   └── result.html (página de resultados)
+│
+├── static/
+│   ├── styles.css
+│   ├── home_page_script.js
+│   └── images/
+│       └── background.jpg
+│
 ├── run.py
 ├── requirements.txt
 └── README.md
+```
 
 ## Como Rodar o Projeto 🚀
 
 ### 1. Clone o repositório
 
 ```bash
-git clone <URL_do_repositório>
+git clone https://github.com/thmsVDC/projeto-otimizacao.git
 cd Projeto-de-Otimização
 ```
 
