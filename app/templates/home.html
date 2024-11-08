@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}
+    Home Page
+{% endblock %}
+
+{% block content %}
+<h2>Entrada de Dados</h2>
+
+<div class="form-floating">
+    <select class="form-select" id="numFields" aria-label="Floating label select example">
+        <option selected>-</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+    </select>
+    <label for="numFields">Quantidade de Variáveis</label>
+</div>
+<div id="inputContainer" class="mt-3"></div>
+
+<div class="form-floating mt-3">
+    <input type="number" class="form-control" id="singleNumberField" placeholder="Número" value="0">
+    <label for="singleNumberField">Quantidade de Restrições</label>
+</div>
+
+<div id="objectiveFunction" class="mt-4"></div>
+<div id="constraintsContainer" class="mt-4"></div>
+
+<script src="{{ url_for('static', filename='js/home_page_script.js') }}"></script>
+{% endblock %}
