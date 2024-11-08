@@ -21,7 +21,7 @@ Este projeto utiliza **Flask**, **Jinja2**, **JavaScript** e **CSS Responsivo** 
 - **JavaScript**
 - **CSS Responsivo**
 
-## Estrutura do Projeto 🛠️
+## Estrutura do Projeto (Ainda em Construção)🛠️
 
 ```plaintext
 Projeto de Otimização
@@ -29,18 +29,17 @@ Projeto de Otimização
 ├── app/
 │   ├── __init__.py
 │   ├── routes.py
-│   ├── models.py (se necessário)
+│   ├── models.py
 │
 ├── templates/
 │   ├── base.html
 │   ├── home.html
-│   └── result.html (página de resultados)
+│   └── result.html
 │
 ├── static/
 │   ├── styles.css
 │   ├── home_page_script.js
-│   └── images/
-│       └── background.jpg
+│   └── images
 │
 ├── run.py
 ├── requirements.txt
