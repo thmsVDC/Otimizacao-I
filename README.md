@@ -4,13 +4,14 @@
 
 O **Projeto de Otimização** é uma aplicação web simples e interativa, desenvolvida como parte de um projeto de faculdade, que permite otimizar funções objetivo e restrições matemáticas. Através de uma interface amigável, os usuários podem definir o número de variáveis, inserir coeficientes para a função objetivo e as restrições, e visualizar os resultados da otimização. 🌟
 
-Este projeto utiliza **Flask**, **Jinja2**, **JavaScript** e **CSS Responsivo** para proporcionar uma experiência dinâmica e otimizada.
+Este projeto utiliza **Flask**, **Jinja2** para proporcionar uma experiência dinâmica e otimizada.
 
 ## Funcionalidades 🌈
 
 - **Função Objetivo**: Insira coeficientes das variáveis e defina a equação `Z = C1*X1 + C2*X2 + ... + Cn*Xn`. 🧮
 - **Restrições**: Defina múltiplas restrições com coeficientes, operadores (≤ ou ≥) e valores. 🔒
-- **Otimização**: Clique no botão **Otimizar** e veja os resultados! (ainda em construção). 🎯
+- **Otimização**: Clique no botão **Otimizar** e veja os resultados! 🎯
+- **Pós Otimização**: Realize uma análise de sensibilidade e verifique se é viável ou não essa alteração. 🎯
 
 ## 📋 Requisitos
 
@@ -18,30 +19,27 @@ Este projeto utiliza **Flask**, **Jinja2**, **JavaScript** e **CSS Responsivo** 
 - **Flask**
 - **Jinja2**
 - **Bootstrap**
-- **JavaScript**
-- **CSS Responsivo**
 
-## Estrutura do Projeto (Ainda em Construção)🛠️
+## Estrutura do Projeto
 
 ```plaintext
 Projeto de Otimização
 │
 ├── app/
-│   ├── __init__.py
-│   ├── routes.py
-│   ├── models.py
-│
-├── templates/
-│   ├── base.html
-│   ├── home.html
-│   └── result.html
-│
-├── static/
-│   ├── styles.css
-│   ├── home_page_script.js
-│   └── images
+│    ├── templates/
+│    │    ├── form.html
+│    │    ├── post_optimization.html
+│    │    └── result.html
+│    │
+│    ├── utils/
+│    │    ├── form_utils.py
+│    │    └── post_optimization_utils.py
+│    │
+│    ├── optimization_process.py
+│    └── routes.py
 │
 ├── run.py
+├── config.py
 ├── requirements.txt
 └── README.md
 ```

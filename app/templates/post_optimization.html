@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados da Otimização</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <h3 class="card-title text-center mb-4">Resultados da Pós Otimização</h3>
+                <h5>
+                    {% if result == 0 %}
+                        <h5 class="lead text-success text-center">A solução é viável!</h5>
+                    {% else %}
+                        <h5 class="lead text-danger text-center">A solução não é viável!</h5>
+                    {% endif %}
+                </h5>
+
+                <div class="mb-4">
+                    <h6 class="card-subtitle mb-2 text-muted">Função Objetivo:</h6>
+                    <p class="lead text-success">Z = {{ objective_fuction }}</p>
+                </div>
+
+                <div class="mb-4">
+                    <h6 class="card-subtitle mb-2 text-muted">Resultado das Variáveis:</h6>
+                    <ul class="list-group">
+                      {% for i in range(num_variables) %}
+                        <li class="list-group-item">
+                          Variável {{ labels[i] }}: {{ variables_results[i] | round(2) }}
+                        </li>
+                      {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="mb-4">
+                    <h6 class="card-subtitle mb-2 text-muted">Preço Sombra:</h6>
+                    <ul class="list-group">
+                      {% for i in range(num_restrictions) %}
+                        <li class="list-group-item">
+                          Preço sombra da restrição {{ i+1 }}: {{ shadow_price[i] | round(2) }}
+                        </li>
+                      {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- Botão de resetar -->
+                <div class="text-center">
+                    <a href="{{ url_for('home') }}" class="btn btn-warning">Resetar e Voltar para Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

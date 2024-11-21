@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,11 +12,12 @@
         <div class="card shadow-sm">
             <div class="card-body">
                 <h5 class="card-title text-center mb-4">Escolha a Quantidade de Variáveis e Restrições</h5>
-                <form action="/variables" method="POST" class="d-flex flex-column align-items-center gap-3">
+                <form action="/initiate_simplex" method="POST" class="d-flex flex-column align-items-center gap-3" id="variable-form">
 
                     <div class="d-flex justify-content-center align-items-center gap-3">
                         <label for="num_variables" class="form-label mb-0">Quantidade de Variáveis:</label>
-                        <select id="num_variables" name="num_variables" class="form-select w-auto">
+                        <select id="num_variables" name="num_variables" class="form-select w-auto" onchange="this.form.submit()">
+                            <option value="0" {% if num_variables == 0 %}selected{% endif %}>-</option>
                             {% for i in range(2, 5) %}
                             <option value="{{ i }}" {% if i == num_variables %}selected{% endif %}>{{ i }}</option>
                             {% endfor %}
@@ -25,21 +26,18 @@
 
                     <div class="d-flex justify-content-center align-items-center gap-3 mt-3">
                         <label for="num_restrictions" class="form-label mb-0">Quantidade de Restrições:</label>
-                        <select id="num_restrictions" name="num_restrictions" class="form-select w-auto">
-                            {% for i in range(2, 11) %}
+                        <select id="num_restrictions" name="num_restrictions" class="form-select w-auto" onchange="this.form.submit()">
+                            <option value="0" {% if num_restrictions == 0 %}selected{% endif %}>-</option>
+                            {% for i in range(1, 11) %}
                             <option value="{{ i }}" {% if i == num_restrictions %}selected{% endif %}>{{ i }}</option>
                             {% endfor %}
                         </select>
-                    </div>
-
-                    <div class="d-flex justify-content-center mt-4">
-                        <button type="submit" class="btn btn-primary">Atualizar</button>
                     </div>
                 </form>
             </div>
         </div>
 
-        {% if num_variables is not none and num_restrictions is not none %}
+        {% if num_variables > 0 and num_restrictions > 0 %}
         <div class="card shadow-sm mt-4">
             <div class="card-body">
                 <h5 class="card-title text-center mb-4">Defina a Função Objetivo</h5>
@@ -96,18 +94,20 @@
 
                         <input
                             type="text"
-                            id="value_{{ i }}_right"
-                            name="value_{{ i }}_right"
+                            id="value_right:{{ i }}"
+                            name="value_right:{{ i }}"
                             class="form-control form-control-sm text-center"
                             placeholder="0"
                             maxlength="5"
                             style="width: 70px;"
-                            required>
+                            required
+                        >
+
                     </div>
                     {% endfor %}
 
                     <div class="d-flex justify-content-center mt-4">
-                        <button type="submit" class="btn btn-success">Processar</button>
+                        <button type="submit" class="btn btn-success">Otimizar</button>
                     </div>
                 </form>
             </div>

@@ -1,3 +1,6 @@
+import secrets
+
+
 class Config:
-    SECRET_KEY = 'sua_chave_secreta_aqui'
+    SECRET_KEY = secrets.token_hex(24)
     DEBUG = True
