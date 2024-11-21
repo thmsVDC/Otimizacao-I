@@ -14,7 +14,7 @@
 
                 <div class="mb-4">
                     <h6 class="card-subtitle mb-2 text-muted">Função Objetivo:</h6>
-                    <p class="lead text-success">Z = {{ objective_fuction }}</p>
+                    <p class="lead text-success">Z = R${{ objective_fuction | round(2) }}</p>
                 </div>
 
                 <div class="mb-4">
@@ -33,7 +33,7 @@
                     <ul class="list-group">
                       {% for i in range(num_restrictions) %}
                         <li class="list-group-item">
-                          Preço sombra da restrição {{ i+1 }}: {{ shadow_price[i] | round(2) }}
+                          Preço sombra da restrição {{ i+1 }}: R${{ shadow_price[i] | round(2) }}
                         </li>
                       {% endfor %}
                     </ul>
@@ -54,12 +54,11 @@
                             </div>
                             <div class="col-md-2 mb-3 text-center">
                                 <input
-                                        type="text"
+                                        type="number"
                                         class="form-control form-control-sm"
                                         id="restriction_right_change_{{ i }}"
                                         name="restriction_right_change_{{ i }}"
                                         placeholder="Novo valor"
-                                        maxlength="5"
                                         required>
                             </div>
                         {% endfor %}

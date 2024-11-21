@@ -48,12 +48,11 @@
                         {% for i in range(num_variables) %}
                         <div class="d-flex align-items-center">
                             <input
-                                type="text"
+                                type="number"
                                 id="variable_{{ i }}"
                                 name="variable_{{ i }}"
                                 class="form-control form-control-sm text-center"
                                 placeholder="0"
-                                maxlength="5"
                                 style="width: 70px;"
                                 required>
                             <span class="ms-1">{{ labels[i] }}</span>
@@ -72,12 +71,11 @@
 
                         {% for j in range(num_variables) %}
                         <input
-                            type="text"
+                            type="number"
                             id="restriction_{{ i }}_{{ j }}"
                             name="restriction_{{ i }}_{{ j }}"
                             class="form-control form-control-sm text-center"
                             placeholder="0"
-                            maxlength="5"
                             style="width: 70px;"
                             required>
                         <span class="ms-1">{{ labels[j] }}</span>
@@ -88,17 +86,16 @@
 
                         <label for="operator_{{ i }}" class="form-label mb-0">Operador:</label>
                         <select id="operator_{{ i }}" name="operator_{{ i }}" class="form-select w-auto">
-                            <option value="<=" {% if '<=' == operators[i] %}selected{% endif %}>&lt;=</option>
-                            <option value=">=" {% if '>=' == operators[i] %}selected{% endif %}>&gt;=</option>
+                            <option value="<=">&lt;=</option>
+                            <option value=">=">&gt;=</option>
                         </select>
 
                         <input
-                            type="text"
+                            type="number"
                             id="value_right:{{ i }}"
                             name="value_right:{{ i }}"
                             class="form-control form-control-sm text-center"
                             placeholder="0"
-                            maxlength="5"
                             style="width: 70px;"
                             required
                         >

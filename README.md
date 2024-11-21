@@ -33,15 +33,15 @@ Projeto de Otimização
 │    │
 │    ├── utils/
 │    │    ├── form_utils.py
-│    │    └── post_optimization_utils.py
+│    │    ├── post_optimization_utils.py
+│    │    └── shadow_price_process.py
 │    │
-│    ├── optimization_process.py
 │    └── routes.py
 │
-├── run.py
 ├── config.py
+├── README.md
 ├── requirements.txt
-└── README.md
+└── run.py
 ```
 
 ## Como Rodar o Projeto 🚀

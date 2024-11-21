@@ -11,7 +11,7 @@ def restrictions_dict_to_list(restrictions_dict, num_restrictions):
     for key, value in restrictions_dict.items():
         _, restriction_idx, var_idx = key.split('_')
         restriction_idx = int(restriction_idx)
-        restrictions_list[restriction_idx].append(int(value))
+        restrictions_list[restriction_idx].append(float(value))
 
     return restrictions_list
 

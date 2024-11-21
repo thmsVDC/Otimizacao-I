@@ -21,7 +21,7 @@
 
                 <div class="mb-4">
                     <h6 class="card-subtitle mb-2 text-muted">Função Objetivo:</h6>
-                    <p class="lead text-success">Z = {{ objective_fuction }}</p>
+                    <p class="lead text-success">Z = R${{ objective_fuction | round(2) }}</p>
                 </div>
 
                 <div class="mb-4">
@@ -35,20 +35,8 @@
                     </ul>
                 </div>
 
-                <div class="mb-4">
-                    <h6 class="card-subtitle mb-2 text-muted">Preço Sombra:</h6>
-                    <ul class="list-group">
-                      {% for i in range(num_restrictions) %}
-                        <li class="list-group-item">
-                          Preço sombra da restrição {{ i+1 }}: {{ shadow_price[i] | round(2) }}
-                        </li>
-                      {% endfor %}
-                    </ul>
-                </div>
-
-                <!-- Botão de resetar -->
                 <div class="text-center">
-                    <a href="{{ url_for('home') }}" class="btn btn-warning">Resetar e Voltar para Home</a>
+                    <a href="{{ url_for('home') }}" class="btn btn-primary">Resetar e Voltar para Home</a>
                 </div>
             </div>
         </div>
