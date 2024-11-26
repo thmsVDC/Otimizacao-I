@@ -30,36 +30,30 @@ def initiate_simplex():
 
 @app.route('/process', methods=['POST'])
 def process():
-    restrictions_right_list = restrictions_right_dict_to_list({
+    restrictions_right_list = dict_to_list({
         key: float(value) for key, value in request.form.items() if key.startswith('value_right')
     })
     restrictions_operators = {
         key: value for key, value in request.form.items() if key.startswith('operator')
     }
-    variables = {
+    variables_list = dict_to_list({
         key: -float(value)
         for key, value in request.form.items()
         if key.startswith('variable')
-    }
-    variables_list = variables_dict_to_list(variables)
-
-    num_variables = len(variables)
+    })
+    num_variables = len(variables_list)
     num_restrictions = len(restrictions_right_list)
     restrictions_list = restrictions_dict_to_list({
         key: float(value) for key, value in request.form.items() if key.startswith('restriction')
     }, num_restrictions)
     restrictions_list, restrictions_right_list = invert_restriction_signs(restrictions_operators, restrictions_list,
                                                                           restrictions_right_list)
+    labels = [chr(65 + i) for i in range(num_variables)]
 
     session["restrictions_right_list"] = restrictions_right_list
     session["restrictions_operators"] = restrictions_operators
     session["variables_list"] = variables_list
     session["restrictions_list"] = restrictions_list
-    labels = [chr(65 + i) for i in range(num_variables)]
-
-    print(variables_list)
-    print(restrictions_list)
-    print(restrictions_right_list)
 
     result = linprog(variables_list, restrictions_list, restrictions_right_list, method="simplex")
     shadow_price = calculate_shadow_price(result, variables_list, restrictions_list, restrictions_right_list)
