@@ -28,39 +28,56 @@ def initiate_simplex():
                            labels=labels, operators=operators)
 
 
-@app.route('/process', methods=['POST'])
+@app.route('/process', methods=['GET', 'POST'])
+@app.route('/process', methods=['GET', 'POST'])
 def process():
-    restrictions_right_list = dict_to_list({
-        key: float(value) for key, value in request.form.items() if key.startswith('value_right')
-    })
-    restrictions_operators = {
-        key: value for key, value in request.form.items() if key.startswith('operator')
-    }
-    variables_list = dict_to_list({
-        key: -float(value)
-        for key, value in request.form.items()
-        if key.startswith('variable')
-    })
-    num_variables = len(variables_list)
-    num_restrictions = len(restrictions_right_list)
-    restrictions_list = restrictions_dict_to_list({
-        key: float(value) for key, value in request.form.items() if key.startswith('restriction')
-    }, num_restrictions)
-    restrictions_list, restrictions_right_list = invert_restriction_signs(restrictions_operators, restrictions_list,
-                                                                          restrictions_right_list)
+    if request.method == 'POST':
+        restrictions_right_list = dict_to_list({
+            key: float(value) for key, value in request.form.items() if key.startswith('value_right')
+        })
+        restrictions_operators = {
+            key: value for key, value in request.form.items() if key.startswith('operator')
+        }
+        variables_list = dict_to_list({
+            key: -float(value)
+            for key, value in request.form.items()
+            if key.startswith('variable')
+        })
+        num_variables = len(variables_list)
+        num_restrictions = len(restrictions_right_list)
+        restrictions_list = restrictions_dict_to_list({
+            key: float(value) for key, value in request.form.items() if key.startswith('restriction')
+        }, num_restrictions)
+        restrictions_list, restrictions_right_list = invert_restriction_signs(
+            restrictions_operators, restrictions_list, restrictions_right_list
+        )
+        # Salva na sessão para reutilização
+        session["restrictions_right_list"] = restrictions_right_list
+        session["restrictions_operators"] = restrictions_operators
+        session["variables_list"] = variables_list
+        session["restrictions_list"] = restrictions_list
+    else:
+        # Puxa da sessão
+        restrictions_right_list = session.get('restrictions_right_list', [])
+        restrictions_operators = session.get('restrictions_operators', {})
+        variables_list = session.get('variables_list', [])
+        restrictions_list = session.get('restrictions_list', [])
+        num_variables = len(variables_list)
+        num_restrictions = len(restrictions_right_list)
+
     labels = [chr(65 + i) for i in range(num_variables)]
-
-    session["restrictions_right_list"] = restrictions_right_list
-    session["restrictions_operators"] = restrictions_operators
-    session["variables_list"] = variables_list
-    session["restrictions_list"] = restrictions_list
-
     result = linprog(variables_list, restrictions_list, restrictions_right_list, method="simplex")
     shadow_price = calculate_shadow_price(result, variables_list, restrictions_list, restrictions_right_list)
 
-    return render_template('result.html', objective_fuction=-result.fun, variables_results=result.x,
-                           shadow_price=shadow_price, labels=labels, num_variables=num_variables,
-                           num_restrictions=num_restrictions, )
+    return render_template(
+        'result.html',
+        objective_fuction=-result.fun,
+        variables_results=result.x,
+        shadow_price=shadow_price,
+        labels=labels,
+        num_variables=num_variables,
+        num_restrictions=num_restrictions,
+    )
 
 
 @app.route('/sensitivity_analysis', methods=['GET', 'POST'])
