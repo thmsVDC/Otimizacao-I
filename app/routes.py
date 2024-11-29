@@ -12,17 +12,27 @@ def home():
     return render_template('form.html', num_variables=0, num_restrictions=0)
 
 
-@app.route('/initiate_simplex', methods=['POST'])
+@app.route('/initiate_simplex', methods=['GET', 'POST'])
 def initiate_simplex():
     num_variables = None
     num_restrictions = None
     labels = []
     operators = []
+
     if request.method == 'POST':
         num_variables = int(request.form['num_variables'])
         num_restrictions = int(request.form['num_restrictions'])
         labels = [chr(65 + i) for i in range(num_variables)]
         operators = ['<=', '>=']
+
+        session['num_variables'] = num_variables
+        session['num_restrictions'] = num_restrictions
+    else:
+        num_variables = session.get('num_variables')
+        num_restrictions = session.get('num_restrictions')
+        if num_variables and num_restrictions:
+            labels = [chr(65 + i) for i in range(num_variables)]
+            operators = ['<=', '>=']
 
     return render_template('form.html', num_variables=num_variables, num_restrictions=num_restrictions,
                            labels=labels, operators=operators)
@@ -51,13 +61,11 @@ def process():
         restrictions_list, restrictions_right_list = invert_restriction_signs(
             restrictions_operators, restrictions_list, restrictions_right_list
         )
-        # Salva na sessão para reutilização
         session["restrictions_right_list"] = restrictions_right_list
         session["restrictions_operators"] = restrictions_operators
         session["variables_list"] = variables_list
         session["restrictions_list"] = restrictions_list
     else:
-        # Puxa da sessão
         restrictions_right_list = session.get('restrictions_right_list', [])
         restrictions_operators = session.get('restrictions_operators', {})
         variables_list = session.get('variables_list', [])
